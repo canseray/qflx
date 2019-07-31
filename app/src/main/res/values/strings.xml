@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">QUIZFLIX</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cikis_yap">Çıkış Yap</string>
+    <string name="sifre_degistir">Şifre Değiştir</string>
+    <string name="soru_oner">Soru Öner</string>
+    <string name="yardim">Yardım</string>
+    <string name="nedir">Nedir?</string>
+    <string name="profili_duzenle">Profili Düzenle</string>
+
+
+</resources>
