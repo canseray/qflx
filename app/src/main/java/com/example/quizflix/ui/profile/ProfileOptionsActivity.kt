@@ -7,14 +7,15 @@ import android.view.View
 import com.example.quizflix.R
 import kotlinx.android.synthetic.main.activity_profile_options.*
 
-class ProfileOptionsActivity : AppCompatActivity() {
 
+class ProfileOptionsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_options)
         setupBackButton()
         setupFragmentNavigations()
+        
     }
 
     fun setupBackButton(){
@@ -25,6 +26,13 @@ class ProfileOptionsActivity : AppCompatActivity() {
     }
 
     fun setupFragmentNavigations(){
+        option1_what.setOnClickListener {
+            profileOptionsRoot.visibility = View.GONE
+            var transaction =supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.profileOptionsContainer,AboutFragment())
+            transaction.addToBackStack("abouteklendi")
+            transaction.commit()
+        }
         option2_editprofile.setOnClickListener {
             profileOptionsRoot.visibility = View.GONE
             var transaction =supportFragmentManager.beginTransaction()
@@ -32,7 +40,20 @@ class ProfileOptionsActivity : AppCompatActivity() {
             transaction.addToBackStack("editprofileeklendi")
             transaction.commit()
         }
-
+        option3_sendquestion.setOnClickListener {
+            profileOptionsRoot.visibility = View.GONE
+            var transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.profileOptionsContainer,ContactFragment())
+            transaction.addToBackStack("contacteklendi")
+            transaction.commit()
+        }
+        option4_changepassword.setOnClickListener {
+            profileOptionsRoot.visibility = View.GONE
+            var transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.profileOptionsContainer,ChangePasswordFragment())
+            transaction.addToBackStack("changepassworkeklendi")
+            transaction.commit()
+        }
         option5_signout.setOnClickListener {
             profileOptionsRoot.visibility = View.GONE
             var transaction = supportFragmentManager.beginTransaction()
