@@ -58,7 +58,11 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
     implementation 'com.firebaseui:firebase-ui-storage:5.0.0'
 
+    //circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    // universal image loader
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
 
 }
