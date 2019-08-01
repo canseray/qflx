@@ -9,5 +9,7 @@
     <color name="grey">#373737</color>
     <color name = "facebookcolor">#3C52B5</color>
     <color name = "green">#0bd815</color>
+    <color name = "white">#FFFFFF</color>
+
 
 </resources>
