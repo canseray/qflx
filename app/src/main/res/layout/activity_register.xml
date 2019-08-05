@@ -8,99 +8,145 @@
         tools:context=".ui.login.RegisterActivity"
         android:background="#000">
 
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/quizflixa"
-            android:id="@+id/imageView3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/loginRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/quizflixa"
+                android:id="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"/>
+
+        <!--<EditText-->
+                <!--android:textSize="14sp"-->
+                <!--android:textColorHint="#FFF"-->
+                <!--android:background="@drawable/login_edittext_background"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:inputType="textPersonName"-->
+                <!--android:hint=" Kullanıcı adı"-->
+                <!--android:ems="10"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--android:id="@+id/register_username_edittext"-->
+                <!--android:layout_marginTop="48dp"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/imageView3"/>-->
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgProfil"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                android:src="@drawable/ic_register_person"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:civ_border_color="@color/lightgrey"
+        />
+
+        <EditText
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColorHint="#FFF"
+                android:background="@drawable/login_edittext_background"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:inputType="textEmailAddress"
+                android:hint=" E-Mail"
+                android:ems="10"
+                android:id="@+id/register_email_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgProfil"
+                android:layout_marginTop="60dp"/>
+
+        <!--<EditText-->
+                <!--android:textSize="14sp"-->
+                <!--android:textColorHint="#FFF"-->
+                <!--android:background="@drawable/login_edittext_background"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:inputType="textPersonName"-->
+                <!--android:hint=" Parola"-->
+                <!--android:ems="10"-->
+                <!--android:id="@+id/register_password_edittext"-->
+                <!--app:layout_constraintStart_toStartOf="@+id/register_email_edittext"-->
+                <!--android:layout_marginTop="44dp"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/register_email_edittext"/>-->
+
+        <Button
+                android:enabled="false"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:background="@drawable/login_button_background"
+                android:text="ileri"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/next_button"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintTop_toBottomOf="@+id/register_email_edittext"
+                android:layout_marginTop="60dp"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/next_button"
+                android:layout_marginTop="24dp">
+            <TextView
+                    android:textSize="16dp"
+                    android:text="Zaten üye misiniz?"
+                    android:textColor="@color/lightgrey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lineartext1"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:textSize="16dp"
+                    android:textColor="@color/red"
+                    android:text="Giriş Yapın"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/login_account"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
+        <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                style="?android:attr/progressBarStyle"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="24dp" android:id="@+id/register_activity_progress"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+            android:id="@+id/loginContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="30dp"/>
-
-    <EditText
-            android:textSize="14sp"
-            android:textColorHint="#FFF"
-            android:background="@drawable/login_edittext_background"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:inputType="textPersonName"
-            android:hint=" Kullanıcı adı"
-            android:ems="10"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/register_username_edittext"
-            android:layout_marginTop="48dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"/>
+            app:layout_constraintStart_toStartOf="parent">
 
-    <EditText
-            android:textSize="14sp"
-            android:textColorHint="#FFF"
-            android:background="@drawable/login_edittext_background"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:inputType="textPersonName"
-            android:hint=" E-Mail"
-            android:ems="10"
-            android:id="@+id/register_email_edittext"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="43dp"
-            app:layout_constraintTop_toBottomOf="@+id/register_username_edittext"/>
 
-    <EditText
-            android:textSize="14sp"
-            android:textColorHint="#FFF"
-            android:background="@drawable/login_edittext_background"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:inputType="textPersonName"
-            android:hint=" Parola"
-            android:ems="10"
-            android:id="@+id/register_password_edittext"
-            app:layout_constraintStart_toStartOf="@+id/register_email_edittext"
-            android:layout_marginTop="44dp"
-            app:layout_constraintTop_toBottomOf="@+id/register_email_edittext"/>
-
-    <Button
-            android:enabled="false"
-            android:textAllCaps="false"
-            android:textColor="#FFF"
-            android:background="@drawable/login_button_background"
-            android:text="Hesap Oluştur"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/register_button"
-            app:layout_constraintHorizontal_bias="0.498"
-            android:layout_marginTop="64dp"
-            app:layout_constraintTop_toBottomOf="@+id/register_password_edittext"/>
-
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_button"
-            android:layout_marginTop="24dp">
-        <TextView
-                android:textSize="16dp"
-                android:text="Zaten üye misiniz?"
-                android:textColor="@color/lightgrey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/lineartext1"
-                android:layout_weight="1"/>
-        <TextView
-                android:textSize="16dp"
-                android:textColor="@color/red"
-                android:text="Giriş Yapın"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/login_account"
-                android:layout_weight="1"/>
-    </LinearLayout>
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

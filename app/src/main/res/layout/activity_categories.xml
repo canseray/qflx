@@ -17,7 +17,9 @@
                 app:layout_constraintBottom_toTopOf="@+id/relativelayout"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/darkgrey"
+        >
 
             <LinearLayout
                     android:layout_width="0dp"
@@ -76,9 +78,10 @@
                 <android.support.v7.widget.RecyclerView
                         android:foregroundGravity="center_horizontal"
                         android:id="@+id/categories_recyclerview"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@color/darkgrey"/>
+                        android:background="@color/darkgrey"
+                        android:layout_gravity="center"/>
 
             </LinearLayout>
 
