@@ -16,13 +16,19 @@ import com.example.quizflix.R
 import com.example.quizflix.models.Categories
 import com.example.quizflix.utils.MainActivity
 import com.example.quizflix.ui.QuizActivity
+import com.example.quizflix.ui.home.HomeActivity
+import com.example.quizflix.ui.login.LoginActivity
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
 
 class CategoriesActivity : MainActivity(1) {
+
+    lateinit var mAuth : FirebaseAuth
+    lateinit var mAuthListener: FirebaseAuth.AuthStateListener
 
     private val TAG = "CategoriesActivity"
     lateinit var mRecyclerView : RecyclerView
@@ -33,6 +39,9 @@ class CategoriesActivity : MainActivity(1) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_categories)
         setupBottomNavigation()
+        setupAuthListener()
+        mAuth = FirebaseAuth.getInstance()
+
         Log.d(TAG,"onCreate")
 
 //        val recyclerView = findViewById(R.id.categories_recyclerview) as RecyclerView
@@ -106,6 +115,43 @@ class CategoriesActivity : MainActivity(1) {
         internal var categoryName : TextView = itemView!!.findViewById<TextView>(R.id.categories_textview)
         internal var categoryImage : ImageView = itemView!!.findViewById<ImageView>(R.id.categories_image)
 
+    }
+
+    private fun setupAuthListener(){
+        mAuthListener = object : FirebaseAuth.AuthStateListener{
+            override fun onAuthStateChanged(p0: FirebaseAuth) {
+                var user = FirebaseAuth.getInstance().currentUser
+
+                if (user == null){
+                    var intent = Intent(this@CategoriesActivity, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    finish()
+                } else {
+
+                }
+            }
+
+        }
+    }
+
+
+
+
+    override fun onStart() {
+        super.onStart()
+        mAuth.addAuthStateListener (mAuthListener)
+    }
+
+
+
+
+
+    override fun onStop() {
+        super.onStop()
+        if (mAuthListener != null){
+            mAuth.removeAuthStateListener (mAuthListener)
+        }
     }
 
 

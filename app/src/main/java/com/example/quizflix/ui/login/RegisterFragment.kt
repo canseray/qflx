@@ -21,8 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.view.*
 import org.greenrobot.eventbus.EventBus
@@ -72,63 +71,93 @@ class RegisterFragment : Fragment() {
 
             progressbar.visibility = View.VISIBLE
 
-            var parola = view.register_password_edittext.text.toString()
-            var kullaniciAdi = view.register_username_edittext.toString()
-            var profilFoto = (R.drawable.ic_profile).toString()
+            var userNameKullanimdaMi = false
+            mRef.child("Users").addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onCancelled(p0: DatabaseError?) {
+
+                }
+
+                override fun onDataChange(p0: DataSnapshot?) {
+
+                    if (p0!!.getValue() != null){
+
+                        for (user in p0!!.children){
+                            var okunanKullanici = user.getValue(Users::class.java)
+                            if (okunanKullanici!!.username!!.equals(view.register_username_edittext.text.toString())){
+                                Toast.makeText(activity,"Kullanıcı adı kullanımda",Toast.LENGTH_SHORT).show()
+                                userNameKullanimdaMi=true
+                                progressbar.visibility = View.INVISIBLE
+                                break
+                            }
+                        }
+
+                        if (userNameKullanimdaMi == false){
+
+
+                            var parola = view.register_password_edittext.text.toString()
+                            var kullaniciAdi = view.register_username_edittext.text.toString()
+                            var profilFoto = (R.drawable.ic_profile).toString()
 
 
 
-            mAuth.createUserWithEmailAndPassword(comeEmail,parola)
-                .addOnCompleteListener ( object : OnCompleteListener<AuthResult>{
-                    override fun onComplete(p0: Task<AuthResult>) {
-                        if (p0!!.isSuccessful){
-                            Toast.makeText(activity,"oturum acildi",Toast.LENGTH_SHORT).show()
-
-                            //oturum acan kullanicinin verilerini db e kaydedelim
-
-                            var userID = mAuth.currentUser!!.uid.toString()
-
-                            var kaydedilecekKullanici = Users(comeEmail,parola,profilFoto,userID,kullaniciAdi)
-
-                            mRef.child("Users").child(userID).setValue(kaydedilecekKullanici)
-                                .addOnCompleteListener(object : OnCompleteListener<Void>{
-                                    override fun onComplete(p0: Task<Void>) {
+                            mAuth.createUserWithEmailAndPassword(comeEmail,parola)
+                                .addOnCompleteListener ( object : OnCompleteListener<AuthResult>{
+                                    override fun onComplete(p0: Task<AuthResult>) {
                                         if (p0!!.isSuccessful){
-                                            Toast.makeText(activity,"kullanici kaydedildi",Toast.LENGTH_SHORT).show()
-                                            progressbar.visibility = View.INVISIBLE
-                                        } else {
+                                            Toast.makeText(activity,"oturum acildi",Toast.LENGTH_SHORT).show()
 
-                                            mAuth.currentUser!!.delete()
-                                                .addOnCompleteListener(object  : OnCompleteListener<Void>{
+                                            //oturum acan kullanicinin verilerini db e kaydedelim
+
+                                            var userID = mAuth.currentUser!!.uid.toString()
+
+                                            var kaydedilecekKullanici = Users(comeEmail,parola,profilFoto,userID,kullaniciAdi)
+
+                                            mRef.child("Users").child(userID).setValue(kaydedilecekKullanici)
+                                                .addOnCompleteListener(object : OnCompleteListener<Void>{
                                                     override fun onComplete(p0: Task<Void>) {
                                                         if (p0!!.isSuccessful){
-                                                            Toast.makeText(activity,"kullanici kaydedilmedi",Toast.LENGTH_SHORT).show()
+                                                            Toast.makeText(activity,"kullanici kaydedildi",Toast.LENGTH_SHORT).show()
                                                             progressbar.visibility = View.INVISIBLE
+                                                        } else {
+
+                                                            mAuth.currentUser!!.delete()
+                                                                .addOnCompleteListener(object  : OnCompleteListener<Void>{
+                                                                    override fun onComplete(p0: Task<Void>) {
+                                                                        if (p0!!.isSuccessful){
+                                                                            Toast.makeText(activity,"kullanici kaydedilmedi",Toast.LENGTH_SHORT).show()
+                                                                            progressbar.visibility = View.INVISIBLE
 
 
+                                                                        }
+                                                                    }
+
+                                                                })
                                                         }
                                                     }
 
                                                 })
+
+
+
+
+                                        } else {
+                                            Toast.makeText(activity,"oturum acilamadi",Toast.LENGTH_SHORT).show()
+                                            progressbar.visibility = View.INVISIBLE
+
+
                                         }
                                     }
 
                                 })
 
 
-
-
-                        } else {
-                            Toast.makeText(activity,"oturum acilamadi",Toast.LENGTH_SHORT).show()
-                            progressbar.visibility = View.INVISIBLE
-
-
                         }
                     }
+                }
 
-                })
+            })
+
         }
-
 
         return view
 

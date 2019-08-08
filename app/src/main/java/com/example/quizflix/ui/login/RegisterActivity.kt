@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.quizflix.R
 import com.example.quizflix.models.Users
+import com.example.quizflix.ui.home.HomeActivity
 import com.example.quizflix.utils.EventbusDataEvents
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -24,10 +25,14 @@ class RegisterActivity : AppCompatActivity() , FragmentManager.OnBackStackChange
     lateinit var mAuth: FirebaseAuth
     lateinit var mRef: DatabaseReference
     lateinit var progressBar: ProgressBar
+    lateinit var mAuthListener: FirebaseAuth.AuthStateListener
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        setupAuthListener()
 
         mAuth = FirebaseAuth.getInstance()
         mRef = FirebaseDatabase.getInstance().reference
@@ -87,6 +92,7 @@ class RegisterActivity : AppCompatActivity() , FragmentManager.OnBackStackChange
                                 if (okunanKullanici!!.email!!.equals(register_email_edittext.text.toString())){
                                     Toast.makeText(this@RegisterActivity,"Email Kullanımda",Toast.LENGTH_SHORT).show()
                                     emailKullanimdaMi=true
+                                    progressBar.visibility = View.INVISIBLE
                                     break
                                 }
                             }
@@ -159,6 +165,43 @@ class RegisterActivity : AppCompatActivity() , FragmentManager.OnBackStackChange
     }
 
 
+
+    private fun setupAuthListener(){
+        mAuthListener = object : FirebaseAuth.AuthStateListener{
+            override fun onAuthStateChanged(p0: FirebaseAuth) {
+                var user = FirebaseAuth.getInstance().currentUser
+
+                if (user != null){
+                    var intent = Intent(this@RegisterActivity, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    finish()
+                } else {
+
+                }
+            }
+
+        }
+    }
+
+
+
+
+    override fun onStart() {
+        super.onStart()
+        mAuth.addAuthStateListener (mAuthListener)
+    }
+
+
+
+
+
+    override fun onStop() {
+        super.onStop()
+        if (mAuthListener != null){
+            mAuth.removeAuthStateListener (mAuthListener)
+        }
+    }
 
 }
 

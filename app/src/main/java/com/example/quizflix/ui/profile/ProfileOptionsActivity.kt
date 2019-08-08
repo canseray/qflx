@@ -55,11 +55,9 @@ class ProfileOptionsActivity : AppCompatActivity() {
             transaction.commit()
         }
         option5_signout.setOnClickListener {
-            profileOptionsRoot.visibility = View.GONE
-            var transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.profileOptionsContainer,LogOutFragment())
-            transaction.addToBackStack("logouteklendi")
-            transaction.commit()
+
+            var dialog = LogOutFragment()
+            dialog.show(supportFragmentManager,"cikis yap dialog goster")
         }
     }
 
