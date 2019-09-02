@@ -9,15 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.quizflix.R
 import com.example.quizflix.models.Questions
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
-import org.w3c.dom.Text
+
 
 class QuizActivity : AppCompatActivity() {
 
+    lateinit var toOpenQuestionID : String
     private val TAG = "QuestionActivity"
     lateinit var mRecyclerView : RecyclerView
     lateinit var mDatabase : DatabaseReference
@@ -27,17 +29,25 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
         Log.d(TAG,"onCreate")
 
+
+        toOpenQuestionID = intent.extras?.get("CategoryID").toString()
+
         mDatabase = FirebaseDatabase.getInstance().getReference("Questions")
         mRecyclerView = findViewById(R.id.question_recyclerview)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        loadQuestionsRecyclerView()
+        loadQuestionsRecyclerView(toOpenQuestionID)
+
+        Toast.makeText(this,"categori no " + toOpenQuestionID,Toast.LENGTH_SHORT).show()
 
     }
 
-    private fun loadQuestionsRecyclerView() {
+    private fun loadQuestionsRecyclerView(toOpenQuestionID: String) {
+
+    val query = mDatabase.orderByChild("CategoryID").equalTo(toOpenQuestionID.toDouble())
+
         val option = FirebaseRecyclerOptions.Builder<Questions>()
-            .setQuery(mDatabase, Questions::class.java)
+            .setQuery(query, Questions::class.java)
             .setLifecycleOwner(this)
             .build()
 
@@ -53,14 +63,15 @@ class QuizActivity : AppCompatActivity() {
             }
 
             override fun onBindViewHolder(holder: QuestionsViewHolder, position: Int, model: Questions) {
-                val placeid = getRef(position).key.toString()
+              // val placeid = getRef(position).key.toString()
 
-                mDatabase.child(placeid).addValueEventListener(object : ValueEventListener{
+                query.addValueEventListener(object : ValueEventListener{
                     override fun onCancelled(p0: DatabaseError) {
                         Log.d(TAG,"onCanceled")
                     }
 
                     override fun onDataChange(p0: DataSnapshot) {
+
                         holder.questionText.setText(model.QuestionText)
                         holder.answerA.setText(model.AnswerA)
                         holder.answerB.setText(model.AnswerB)
@@ -70,6 +81,9 @@ class QuizActivity : AppCompatActivity() {
                     }
 
                 })
+
+
+
             }
         }
 

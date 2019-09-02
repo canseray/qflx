@@ -22,7 +22,7 @@
 
         <TextView
                 android:textColor="@color/lightgrey"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:text="Dark"
                 android:layout_width="match_parent"

@@ -32,7 +32,7 @@ class RegisterActivity : AppCompatActivity() , FragmentManager.OnBackStackChange
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        setupAuthListener()
+     //   setupAuthListener()
 
         mAuth = FirebaseAuth.getInstance()
         mRef = FirebaseDatabase.getInstance().reference
@@ -187,21 +187,21 @@ class RegisterActivity : AppCompatActivity() , FragmentManager.OnBackStackChange
 
 
 
-    override fun onStart() {
-        super.onStart()
-        mAuth.addAuthStateListener (mAuthListener)
-    }
-
-
-
-
-
-    override fun onStop() {
-        super.onStop()
-        if (mAuthListener != null){
-            mAuth.removeAuthStateListener (mAuthListener)
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        mAuth.addAuthStateListener (mAuthListener)
+//    }
+//
+//
+//
+//
+//
+//    override fun onStop() {
+//        super.onStop()
+//        if (mAuthListener != null){
+//            mAuth.removeAuthStateListener (mAuthListener)
+//        }
+//    }
 
 }
 

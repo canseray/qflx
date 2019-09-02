@@ -23,7 +23,7 @@ class ProfileActivity : MainActivity(2) {
         setContentView(R.layout.activity_profile)
         setupBottomNavigation()
         Log.d(TAG,"onCreate")
-        setupAuthListener()
+       // setupAuthListener()
         mAuth = FirebaseAuth.getInstance()
         setupOptions()
     }
@@ -57,21 +57,21 @@ class ProfileActivity : MainActivity(2) {
 
 
 
-    override fun onStart() {
-        super.onStart()
-        mAuth.addAuthStateListener (mAuthListener)
-    }
-
-
-
-
-
-    override fun onStop() {
-        super.onStop()
-        if (mAuthListener != null){
-            mAuth.removeAuthStateListener (mAuthListener)
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        mAuth.addAuthStateListener (mAuthListener)
+//    }
+//
+//
+//
+//
+//
+//    override fun onStop() {
+//        super.onStop()
+//        if (mAuthListener != null){
+//            mAuth.removeAuthStateListener (mAuthListener)
+//        }
+//    }
 
 
 }

@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        setupAuthListener()
+     //   setupAuthListener()
 
             mAuth = FirebaseAuth.getInstance()
             mRef = FirebaseDatabase.getInstance().reference
@@ -201,21 +201,21 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-    override fun onStart() {
-        super.onStart()
-        mAuth.addAuthStateListener (mAuthListener)
-    }
-
-
-
-
-
-    override fun onStop() {
-        super.onStop()
-        if (mAuthListener != null){
-            mAuth.removeAuthStateListener (mAuthListener)
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        mAuth.addAuthStateListener (mAuthListener)
+//    }
+//
+//
+//
+//
+//
+//    override fun onStop() {
+//        super.onStop()
+//        if (mAuthListener != null){
+//            mAuth.removeAuthStateListener (mAuthListener)
+//        }
+//    }
 }
 
 
