@@ -15,6 +15,7 @@ import com.example.quizflix.models.Questions
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_quiz.*
 
 
 class QuizActivity : AppCompatActivity() {
@@ -40,6 +41,7 @@ class QuizActivity : AppCompatActivity() {
 
         Toast.makeText(this,"categori no " + toOpenQuestionID,Toast.LENGTH_SHORT).show()
 
+
     }
 
     private fun loadQuestionsRecyclerView(toOpenQuestionID: String) {
@@ -58,8 +60,6 @@ class QuizActivity : AppCompatActivity() {
 
                 val itemView = LayoutInflater.from(this@QuizActivity).inflate(R.layout.question_item,p0,false)
                 return QuestionsViewHolder(itemView)
-
-
             }
 
             override fun onBindViewHolder(holder: QuestionsViewHolder, position: Int, model: Questions) {
@@ -77,6 +77,7 @@ class QuizActivity : AppCompatActivity() {
                         holder.answerB.setText(model.AnswerB)
                         holder.answerC.setText(model.AnswerC)
                         holder.answerD.setText(model.AnswerD)
+                      //  holder.categoryName.setText(model.QuestionTitle)
                         Log.d(TAG,"onDataChange")
                     }
 
@@ -98,6 +99,7 @@ class QuizActivity : AppCompatActivity() {
         internal var answerB : TextView = itemView!!.findViewById<TextView>(R.id.b_answer)
         internal var answerC : TextView = itemView!!.findViewById<TextView>(R.id.c_answer)
         internal var answerD : TextView = itemView!!.findViewById<TextView>(R.id.d_answer)
+        //internal var categoryName : TextView = itemView!!.findViewById<TextView>(R.id.category_name_textview)
 
     }
 

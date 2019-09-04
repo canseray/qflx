@@ -23,6 +23,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.cardview_item_categories.view.*
 
 
 class CategoriesActivity : MainActivity(1) {
@@ -39,7 +40,7 @@ class CategoriesActivity : MainActivity(1) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_categories)
         setupBottomNavigation()
-       // setupAuthListener()
+        setupAuthListener()
         mAuth = FirebaseAuth.getInstance()
 
         Log.d(TAG,"onCreate")
@@ -83,7 +84,7 @@ class CategoriesActivity : MainActivity(1) {
                 val placeid = getRef(position).key.toString()
 
                 holder.itemView.setOnClickListener{ view->
-                    intent = Intent(this@CategoriesActivity, QuizActivity::class.java)
+                    intent = Intent(this@CategoriesActivity, CategoryInfoActivity::class.java)
                     intent.putExtra("CategoryID",model.CategoryID).toString()
                     startActivity(intent)
                 }
@@ -140,21 +141,21 @@ class CategoriesActivity : MainActivity(1) {
 
 
 
-//    override fun onStart() {
-//        super.onStart()
-//        mAuth.addAuthStateListener (mAuthListener)
-//    }
-//
-//
-//
-//
-//
-//    override fun onStop() {
-//        super.onStop()
-//        if (mAuthListener != null){
-//            mAuth.removeAuthStateListener (mAuthListener)
-//        }
-//    }
+    override fun onStart() {
+        super.onStart()
+        mAuth.addAuthStateListener (mAuthListener)
+    }
+
+
+
+
+
+    override fun onStop() {
+        super.onStop()
+        if (mAuthListener != null){
+            mAuth.removeAuthStateListener (mAuthListener)
+        }
+    }
 
 
 }

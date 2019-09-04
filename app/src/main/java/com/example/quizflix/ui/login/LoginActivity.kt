@@ -134,6 +134,9 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this@LoginActivity,"oturum açıldı" ,Toast.LENGTH_SHORT).show()
                         progressBar3.visibility= View.GONE
 
+                        var intent = Intent(this@LoginActivity,HomeActivity::class.java)
+                        startActivity(intent)
+
 
                     } else {
 

@@ -38,6 +38,13 @@
             {
               "client_id": "27189934348-2amh5fga9tk4j0jeq1dhsgrldtbjjudk.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "27189934348-na8k4kcm7osrjcve5p9d6c3rcet4en2s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.emirkartal.quizflix"
+              }
             }
           ]
         }

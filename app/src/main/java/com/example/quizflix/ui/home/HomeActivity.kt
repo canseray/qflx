@@ -24,7 +24,7 @@ class HomeActivity : MainActivity(0) {
 
         setupBottomNavigation()
 
-       // setupAuthListener()
+        setupAuthListener()
         mAuth = FirebaseAuth.getInstance()
 
 
@@ -61,19 +61,19 @@ class HomeActivity : MainActivity(0) {
 
 
 
-//    override fun onStart() {
-//        super.onStart()
-//        mAuth.addAuthStateListener (mAuthListener)
-//    }
+    override fun onStart() {
+        super.onStart()
+        mAuth.addAuthStateListener (mAuthListener)
+    }
 
 
 
 
 
-//    override fun onStop() {
-//        super.onStop()
-//        if (mAuthListener != null){
-//            mAuth.removeAuthStateListener (mAuthListener)
-//        }
-//    }
+    override fun onStop() {
+        super.onStop()
+        if (mAuthListener != null){
+            mAuth.removeAuthStateListener (mAuthListener)
+        }
+    }
 }

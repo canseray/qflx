@@ -16,6 +16,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.quizflix.R
 import com.example.quizflix.models.Users
+import com.example.quizflix.ui.home.HomeActivity
 import com.example.quizflix.utils.EventbusDataEvents
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -96,7 +97,10 @@ class RegisterFragment : Fragment() {
 
                             var parola = view.register_password_edittext.text.toString()
                             var kullaniciAdi = view.register_username_edittext.text.toString()
-                            var profilFoto = (R.drawable.ic_profile).toString()
+                            var profilFoto = (R.drawable.ic_contact).toString()
+                            var quizPuani = " 0 "
+                            var quizRutbesi = "çaylak"
+                            var quizRutbeImage = (R.drawable.ic_categories).toString()
 
 
 
@@ -110,7 +114,7 @@ class RegisterFragment : Fragment() {
 
                                             var userID = mAuth.currentUser!!.uid.toString()
 
-                                            var kaydedilecekKullanici = Users(comeEmail,parola,profilFoto,userID,kullaniciAdi)
+                                            var kaydedilecekKullanici = Users(comeEmail,parola,profilFoto,userID,kullaniciAdi,quizPuani,quizRutbesi,quizRutbeImage)
 
                                             mRef.child("Users").child(userID).setValue(kaydedilecekKullanici)
                                                 .addOnCompleteListener(object : OnCompleteListener<Void>{
@@ -118,6 +122,9 @@ class RegisterFragment : Fragment() {
                                                         if (p0!!.isSuccessful){
                                                             Toast.makeText(activity,"kullanici kaydedildi",Toast.LENGTH_SHORT).show()
                                                             progressbar.visibility = View.INVISIBLE
+                                                            var intent = Intent(activity,HomeActivity::class.java)
+                                                            startActivity(intent)
+
                                                         } else {
 
                                                             mAuth.currentUser!!.delete()
